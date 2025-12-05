@@ -12,8 +12,8 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="<?php bloginfo( 'charset' ); ?>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +40,8 @@
 </head>
 
 <body <?php body_class(); ?>>
+<?php // Виклик гачка для коректного підключення стороннього коду ?>
+<?php wp_body_open(); ?>
 
 <header>
     <?php if (!function_exists('dynamic_sidebar') || !dynamic_sidebar('header-news')) : ?>
@@ -82,6 +84,8 @@
                 echo strip_tags(wp_nav_menu($args), '<a>');
                 ?>
             </nav>
+            <?php // Кнопка для відкриття пошуку на десктопі ?>
+            <div class="search-btn"></div>
             <div class="search">
                 <?php get_search_form(); ?>
             </div>
