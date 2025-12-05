@@ -1,0 +1,275 @@
+<?php
+get_header();
+ ?>
+
+ <?php
+// Установка переменной текущего автора $curauth
+$user = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+/*
+?>
+
+<div class="author-profile-card">
+    <h2>Обо мне: <?php echo $curauth->nickname; ?></h2>
+    <div class="author-photo">
+    <?php echo get_avatar( $curauth->user_email, '90 '); ?>
+    </div>
+    <p><strong>Вебсайт:</strong> <a href="<?php echo $curauth->user_url; ?>"><?php echo $curauth->user_url; ?></a><br />
+    <strong>Биография:</strong> <?php echo $curauth->user_description; ?></p>
+</div>
+
+<h2>Посты <?php echo $curauth->nickname; ?>:</h2>
+
+
+ <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+<h3>
+<a href="<?php the_permalink() ?>" rel="bookmark" title="Постоянная ссылка: <?php the_title(); ?>">
+<?php the_title(); ?></a>
+</h3>
+<p class="posted-on">Опубликована: <?php the_time('d M Y'); ?></p>
+
+<?php the_excerpt(); ?>
+
+<?php endwhile;
+
+// Предыдущая/следующая навигация по страницам.
+the_posts_pagination();
+
+
+else: ?>
+<p><?php _e('У автора нет постов.'); ?></p>
+
+<?php endif;
+*/?>
+
+
+        <div class="news-block black author">
+            <div class="author-profile">
+                <div class="img-bg">
+                  <?php the_post_thumbnail(); ?>
+                </div>
+                <div class="container">
+                    <div class="top-side">
+                        <div class="name"><?php echo $user->nickname; ?></div>
+                        <div class="reporter">Reporter, CNN Business</div>
+                        <a href="#" class="twitter"></a>
+                    </div>
+                    <div class="bott-side">
+                        <div class="desc">
+                            <?php echo $user->user_description; ?>
+                        </div>
+                        <a href="#about">Full Bio</a>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="middle-block var100p">
+                        <a href="#" class="huge-news img hover-title">
+                            <img src="https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190117115501-mitch-mcconnell.jpg">
+                            <span class="img-title"><span class="status">Opinion</span>Why a national emergency freaks out Republicans</span>
+                        </a>
+                        <a href="#" class="news-text">
+                            <span class="text">Mitch McConnell just sold Congress down the river</span>
+                        </a>
+                        <a href="#" class="news-text">
+                            <span class="text">Mitch McConnell just sold Congress down the river</span>
+                        </a>
+                    </div>
+                    <div class="middle-block var100p">
+                        <a href="#" class="huge-news img hover-title">
+                            <img src="https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190117115501-mitch-mcconnell.jpg">
+                            <span class="img-title">Why a national emergency freaks out Republicans</span>
+                        </a>
+                    </div>
+                    <div class="middle-block var460 tablet-100">
+                        <a href="#" class="img">
+                            <img src="https://i.kinja-img.com/gawker-media/image/upload/s--yMLpEyz0--/c_scale,f_auto,fl_progressive,q_80,w_800/mwjdthlg4qizk3ehpzin.jpg">
+                            <span class="img-title small">Declaration will come at same time US President signs funding bill to avoid another shutdown</span>
+                        </a>
+                        <a href="#" class="news-text"><span class="text-red">Analysis</span> Mitch McConnell just sold Congress down the river</a>
+                        <a href="#" class="news-text"><span class="text-red">live</span> Pelosi says she may file legal challenge to emergency</a>
+                        <a href="#" class="news-text">Why a national emergency freaks out Republicans</a>
+                        <a href="#" class="news-text"><span class="text-red">Analysis</span> Trump's massive capitulation</a>
+                    </div>
+                    <div class="middle-block tablet-50">
+                        <div class="title">Top stories</div>
+                        <a href="#" class="img">
+                            <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                            <span class="img-title"><span class="status">Analysis</span>US fight with Huawei messes with world's 5G plans</span>
+                        </a>
+                        <a href="#" class="news-text">The iPhone is getting crushed in China</a>
+                        <a href="#" class="news-text">Coca-Cola stock has worst day in decade</a>
+                        <a href="#" class="news-text">Amazon scraps New York City headquarters</a>
+                        <a href="#" class="news-text">'Pineapple express' raises fears in California</a>
+                        <a href="#" class="news-text">The iPhone is getting crushed in China</a>
+                        <a href="#" class="news-text">Homosexuality rampant at the Vatican, book claims</a>
+                        <a href="#" class="news-text">Amazon scraps New York City headquarters</a>
+                        <a href="#" class="news-text">'Pineapple express' raises fears in California<span class="play"></span></a>
+                    </div>
+                    <div class="middle-block tablet-50">
+                        <div class="title">In focus</div>
+                        <a href="#" class="img">
+                            <img src="https://img.tsn.ua/cached/1539359359/tsn-8ef996fbeaebf7621936189b51062f05/thumbs/315x210/41/87/6071dbd6a128661e610e4d5249d38741.jpeg">
+                            <span class="img-title">40 killed in bomb attack on Indian paramilitary police</span>
+                        </a>
+                        <a href="#" class="news-text">The iPhone is getting crushed in China</a>
+                        <a href="#" class="news-text">Coca-Cola stock has worst day in decade</a>
+                        <a href="#" class="news-text">Amazon scraps New York City headquarters</a>
+                        <a href="#" class="news-text">'Pineapple express' raises fears in California</a>
+                        <a href="#" class="news-text">The iPhone is getting crushed in China</a>
+                        <a href="#" class="news-text">Homosexuality rampant at the Vatican, book claims</a>
+                        <a href="#" class="news-text">Amazon scraps New York City headquarters</a>
+                        <a href="#" class="news-text">'Pineapple express' raises fears in California</a>
+                    </div>
+                    <div class="middle-block var33p tablet-50">
+                        <a href="#" class="title arrowed">Around the world <span class="arrow"></span></a>
+                        <a href="#" class="img">
+                            <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                            <span class="img-title">US fight with Huawei messes with world's 5G plans</span>
+                        </a>
+                        <a href="#" class="news-text">The iPhone is getting crushed in China</a>
+                        <a href="#" class="news-text">Coca-Cola stock has worst day in decade</a>
+                        <a href="#" class="news-text">Amazon scraps New York City headquarters</a>
+                        <a href="#" class="news-text">'Pineapple express' raises fears in California</a>
+                    </div>
+                    <div class="middle-block var33p tablet-50">
+                        <a href="#" class="title arrowed">Around the world <span class="arrow"></span></a>
+                        <a href="#" class="img">
+                            <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                            <span class="img-title">US fight with Huawei messes with world's 5G plans</span>
+                        </a>
+                        <a href="#" class="news-text">The iPhone is getting crushed in China</a>
+                        <a href="#" class="news-text">Coca-Cola stock has worst day in decade</a>
+                        <a href="#" class="news-text">Amazon scraps New York City headquarters</a>
+                        <a href="#" class="news-text">'Pineapple express' raises fears in California</a>
+                    </div>
+                    <div class="middle-block var33p tablet-50">
+                        <a href="#" class="title arrowed">Around the world <span class="arrow"></span></a>
+                        <a href="#" class="img">
+                            <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                            <span class="img-title">US fight with Huawei messes with world's 5G plans</span>
+                        </a>
+                        <a href="#" class="news-text">The iPhone is getting crushed in China</a>
+                        <a href="#" class="news-text">Coca-Cola stock has worst day in decade</a>
+                        <a href="#" class="news-text">Amazon scraps New York City headquarters</a>
+                        <a href="#" class="news-text">'Pineapple express' raises fears in California</a>
+                    </div>
+                    <div class="middle-block var100p">
+                        <div class="row">
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                            <div class="middle-block var25p tablet-50">
+                                <a href="#" class="img">
+                                    <img src="https://static.designboom.com/wp-content/uploads/2018/10/kanye-west-iplane-1-donald-trump-designboom-600.jpg">
+                                    <span class="img-title font-light">US fight with Huawei messes with world's 5G plans</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line" id="about">
+                        <span class="text">About</span>
+                        <span class="stripes"></span>
+                    </div>
+                    <div class="middle-block var100p tablet-50 text-border">
+                        <p>Ivana Kottasová is a reporter for CNN Business. She is based in London and covers European tech, climate, business and the economy.</p>
+                        <p>She regularly reports on Europe's attempts to regulate Big Tech and has written extensively about Brexit, the eurozone crisis and economic policies and trends across Europe.</p>
+                        <p>Originally from Prague, Kottasová joined CNN in 2012. She holds a master's degree in European Government from the London School of Economics and a master's degree in Journalism from Columbia University.</p>
+                        <p>Before joining CNN, Kottasová contributed to for the Financial Times, The Guardian, ITV News, </p>
+                        <p>various Czech newspapers and magazines, and Czech Radio.</p>
+                        <p>News tips? Email ivana.kottasova@cnn.com. Follow her @ivanakottasova on Twitter.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+<?php
+get_footer();
+ ?>

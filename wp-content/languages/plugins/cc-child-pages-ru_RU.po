@@ -1,0 +1,193 @@
+# Translation of Plugins - CC Child Pages - Stable (latest release) in Russian
+# This file is distributed under the same license as the Plugins - CC Child Pages - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-09-13 06:56:03+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: GlotPress/4.0.0-alpha.7\n"
+"Language: ru\n"
+"Project-Id-Version: Plugins - CC Child Pages - Stable (latest release)\n"
+
+#: includes/ccchildpages_widget.php:140
+msgid "Exclude Tree:"
+msgstr "Исключить дерево:"
+
+#: includes/ccchildpages_widget.php:142
+msgid "Page IDs, separated by commas.<br />Similar to Exclude, but will also exclude children of the pages in the list."
+msgstr "IDs страниц, разделенные запятыми.<br />Аналогично параметру Исключить, но также исключает дочерние страницы из списка."
+
+#: includes/ccchildpages.php:1162
+msgid "Please donate..."
+msgstr "Пожалуйста пожертвуйте..."
+
+#: includes/ccchildpages.php:1017
+msgid "Enqueue Skins CSS:"
+msgstr "Добавить в очередь CSS стилей для скинов:"
+
+#: includes/ccchildpages_widget.php:129
+msgid "Page author"
+msgstr "Автор страницы"
+
+#: includes/ccchildpages_widget.php:128
+msgid "Date modified"
+msgstr "Дата изменения"
+
+#: includes/ccchildpages_widget.php:127
+msgid "Date created"
+msgstr "Дата создания"
+
+#: includes/ccchildpages_widget.php:119
+msgid "Overrides the Title field, unless parent page has no parent."
+msgstr "Переопределяет поле заголовка, если родительская страница не имеет родителей."
+
+#: includes/ccchildpages_widget.php:117
+msgid "Show Page Title:"
+msgstr "Показать заголовок страницы:"
+
+#: includes/ccchildpages.php:579
+msgid "Author: "
+msgstr "Автор: "
+
+#: includes/ccchildpages_widget.php:130
+msgid "Comment count"
+msgstr "Кол-во комментариев"
+
+#: includes/ccchildpages.php:583
+msgid "Created: "
+msgstr "Создано: "
+
+#: includes/ccchildpages.php:587
+msgid "Modified: "
+msgstr "Изменено: "
+
+#: includes/ccchildpages_widget.php:131
+msgid "Random"
+msgstr "Случайно"
+
+#: includes/ccchildpages_widget.php:171
+msgid "Depth:"
+msgstr "Глубина:"
+
+#: includes/ccchildpages_widget.php:168
+msgid "Parent:"
+msgstr "Родитель:"
+
+#: includes/ccchildpages_widget.php:150
+msgid "Show Sibling Pages:"
+msgstr "Показать однородные страницы:"
+
+#: includes/ccchildpages_widget.php:147
+msgid "Overrides the Parent field, shows all top-level pages."
+msgstr "Определяет родительское поле, отображает все страницы верхнего уровня."
+
+#: includes/ccchildpages_widget.php:145
+msgid "Show All Pages:"
+msgstr "Показать все страницы:"
+
+#. Plugin URI of the plugin
+msgid "http://ccchildpages.ccplugins.co.uk/"
+msgstr "http://ccchildpages.ccplugins.co.uk/"
+
+#: includes/ccchildpages_widget.php:178
+msgid "Value of 2 (or greater) specifies the depth (or level) to descend in displaying Pages."
+msgstr "Значение 2 (или больше) указывает глубину (или уровень) для определения в отображения страниц."
+
+#: includes/ccchildpages_widget.php:177
+msgid "Show only top level Pages"
+msgstr "Показать только страницы верхнего уровня"
+
+#: includes/ccchildpages_widget.php:176
+msgid "Pages in sub-pages displayed in flat (no indent) form."
+msgstr "Страницы в подстраницах, отображаемые в плоской (без отступа) форме. "
+
+#: includes/ccchildpages_widget.php:175
+msgid "Pages and sub-pages displayed in hierarchical (indented) form (Default)."
+msgstr "Страницы и подстраницы отображаемые в иерархическом (с отступом) форме (по умолчанию)."
+
+#. Author URI of the plugin
+msgid "https://caterhamcomputing.net/"
+msgstr "https://caterhamcomputing.net/"
+
+#. Author of the plugin
+msgid "Caterham Computing"
+msgstr "Caterham Computing"
+
+#. Description of the plugin
+msgid "Show links to child pages"
+msgstr "Показать ссылки на дочерние страницы"
+
+#: includes/ccchildpages_widget.php:152
+msgid "Overrides the Parent and Show All field, shows sibling pages."
+msgstr "Переопределяет поля Родительский (Parent) и Показать все (Show All), отображает одноуровневые страницы."
+
+#: includes/ccchildpages_widget.php:137
+msgid "Page IDs, separated by commas."
+msgstr "ID страниц, разделённые запятыми."
+
+#: includes/ccchildpages_widget.php:126
+msgid "Page ID"
+msgstr "ID страницы"
+
+#: includes/ccchildpages_widget.php:135
+msgid "Exclude:"
+msgstr "Исключено:"
+
+#: includes/ccchildpages_widget.php:124
+msgid "Page title"
+msgstr "Название страницы"
+
+#: includes/ccchildpages_widget.php:125
+msgid "Page order"
+msgstr "Заданному порядку страниц"
+
+#: includes/ccchildpages_widget.php:122
+msgid "Sort by:"
+msgstr "Сортировать по:"
+
+#: includes/ccchildpages.php:1160
+msgid "Settings..."
+msgstr "Настройки..."
+
+#: includes/ccchildpages.php:1146 includes/ccchildpages.php:1161
+msgid "Rate this plugin..."
+msgstr "Оценить этот плагин..."
+
+#. Plugin Name of the plugin
+#: includes/ccchildpages_widget.php:16
+msgid "CC Child Pages"
+msgstr "CC Child Pages"
+
+#: includes/ccchildpages.php:1162
+msgid "(Your donations keep this plugin free &amp; supported)"
+msgstr "(Ваши пожертвования сохранят плагин и его поддержку бесплатными)"
+
+#: includes/ccchildpages_widget.php:113
+msgid "Title:"
+msgstr "Заголовок:"
+
+#: includes/ccchildpages_widget.php:17
+msgid "Displays current child pages as a menu"
+msgstr "Отображает текущие дочерние страницы в виде меню"
+
+#: includes/ccchildpages.php:1031
+msgid "Update Options"
+msgstr "Сохранить настройки"
+
+#: includes/ccchildpages.php:1023
+msgid "Custom CSS:"
+msgstr "Произвольные стили (CSS):"
+
+#: includes/ccchildpages.php:77
+msgid "Read more ..."
+msgstr "Читать далее ..."
+
+#: includes/ccchildpages.php:1016
+msgid "Add button to the visual editor:"
+msgstr "Добавить кнопку в визуальный редактор:"
+
+#: includes/ccchildpages.php:1015
+msgid "CC Child Pages options"
+msgstr "Параметры CC Child Pages"
