@@ -80,7 +80,11 @@ Template Post Type: post ,page, product
                             <div class="published">
                                 <div class="publisher">
                                     <div class="logo">
-                                      <?php echo do_shortcode('[avatar]'); ?>
+                                      <?php
+                                      // Використовуємо стандартний аватар WordPress без плагінів.
+                                      $author_id = get_the_author_meta( 'ID' );
+                                      echo get_avatar( $author_id, 60, '', 'Автор статті', array( 'class' => 'wp-user-avatar' ) );
+                                      ?>
                                     </div>
                                     <div class="sub">
                                         <div class="name"><?php the_author_posts_link(); ?> Games-Walker</div>

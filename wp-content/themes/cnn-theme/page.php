@@ -105,7 +105,12 @@
            <div class="middle-block-avatar-layout var100p">
              <div class="content-wrapper">
                <div class="avatar">
-                 <img src="<?= get_wp_user_avatar_src() ?>" alt="Автор статьи" class="wp-user-avatar" loading="lazy">
+                 <?php
+                 // Використовуємо стандартний аватар WordPress для автора.
+                 $author_id  = get_the_author_meta( 'ID' );
+                 $avatar_url = cnn_theme_get_author_avatar_url( $author_id, 150 );
+                 ?>
+                 <img src="<?php echo esc_url( $avatar_url ); ?>" alt="Автор статьи" class="wp-user-avatar" loading="lazy">
                </div>
                <div class="descriptionavatar">
                  <?php pinterest(); ?>

@@ -198,6 +198,224 @@ function my_jquery_enqueue() {
 }
 
 /**
+ * Повертає URL стандартного аватара автора через WordPress (Gravatar/профіль).
+ *
+ * @param int $author_id ID автора.
+ * @param int $size      Розмір аватара.
+ *
+ * @return string
+ */
+function cnn_theme_get_author_avatar_url( $author_id, $size = 150 ) {
+	// Спочатку пробуємо локальний аватар, якщо він заданий у профілі автора.
+	$local_avatar_url = cnn_theme_get_local_avatar_url( $author_id, $size );
+	if ( ! empty( $local_avatar_url ) ) {
+		return $local_avatar_url;
+	}
+
+	// Якщо локального аватара немає, використовуємо стандартний механізм WordPress.
+	return get_avatar_url(
+		$author_id,
+		array(
+			'size' => $size,
+		)
+	);
+}
+
+/**
+ * Повертає URL локального аватара автора, якщо він заданий у профілі.
+ *
+ * @param int $author_id ID автора.
+ * @param int $size      Розмір аватара.
+ *
+ * @return string
+ */
+function cnn_theme_get_local_avatar_url( $author_id, $size = 150 ) {
+	$avatar_id = (int) get_user_meta( $author_id, 'cnn_theme_avatar_id', true );
+	if ( $avatar_id <= 0 ) {
+		return '';
+	}
+
+	// Беремо URL із медіатеки, щоб аватар був локальним.
+	$avatar_url = wp_get_attachment_image_url( $avatar_id, array( $size, $size ) );
+
+	return $avatar_url ? $avatar_url : '';
+}
+
+/**
+ * Додає поле вибору локального аватара у профілі користувача.
+ *
+ * @param WP_User $user Поточний користувач.
+ *
+ * @return void
+ */
+function cnn_theme_render_avatar_profile_field( $user ) {
+	$avatar_id  = (int) get_user_meta( $user->ID, 'cnn_theme_avatar_id', true );
+	$avatar_url = $avatar_id ? wp_get_attachment_image_url( $avatar_id, 'thumbnail' ) : '';
+	?>
+	<h3>Локальний аватар автора</h3>
+	<table class="form-table" role="presentation">
+		<tr>
+			<th><label for="cnn-theme-avatar-id">Аватар</label></th>
+			<td>
+				<input type="hidden" id="cnn-theme-avatar-id" name="cnn_theme_avatar_id" value="<?php echo esc_attr( $avatar_id ); ?>">
+				<div id="cnn-theme-avatar-preview">
+					<?php if ( $avatar_url ) : ?>
+						<img src="<?php echo esc_url( $avatar_url ); ?>" alt="Попередній перегляд аватара" style="max-width: 150px; height: auto;">
+					<?php endif; ?>
+				</div>
+				<p class="description">Оберіть локальне зображення в медіатеці для аватара автора.</p>
+				<button type="button" class="button" id="cnn-theme-avatar-upload">Вибрати аватар</button>
+				<button type="button" class="button" id="cnn-theme-avatar-remove">Прибрати аватар</button>
+			</td>
+		</tr>
+	</table>
+	<?php
+}
+
+/**
+ * Зберігає вибраний локальний аватар у мета-даних користувача.
+ *
+ * @param int $user_id ID користувача.
+ *
+ * @return void
+ */
+function cnn_theme_save_avatar_profile_field( $user_id ) {
+	// Дотримуємося принципу «не нашкодь»: перевіряємо права доступу.
+	if ( ! current_user_can( 'edit_user', $user_id ) ) {
+		return;
+	}
+
+	$avatar_id = isset( $_POST['cnn_theme_avatar_id'] ) ? (int) $_POST['cnn_theme_avatar_id'] : 0;
+	update_user_meta( $user_id, 'cnn_theme_avatar_id', $avatar_id );
+}
+
+/**
+ * Підміняє URL аватара на локальний, якщо він заданий у профілі.
+ *
+ * @param array          $args        Дані аватара.
+ * @param int|string|WP_User $id_or_email Ідентифікатор користувача.
+ *
+ * @return array
+ */
+function cnn_theme_override_avatar_data( $args, $id_or_email ) {
+	$author_id = cnn_theme_resolve_user_id( $args, $id_or_email );
+	if ( $author_id <= 0 ) {
+		return $args;
+	}
+
+	$local_avatar_url = cnn_theme_get_local_avatar_url( $author_id, (int) $args['size'] );
+	if ( $local_avatar_url ) {
+		$args['url'] = $local_avatar_url;
+	}
+
+	return $args;
+}
+
+/**
+ * Визначає ID користувача для фільтра аватарів.
+ *
+ * @param array               $args        Дані аватара.
+ * @param int|string|WP_User  $id_or_email Ідентифікатор користувача.
+ *
+ * @return int
+ */
+function cnn_theme_resolve_user_id( $args, $id_or_email ) {
+	if ( ! empty( $args['user_id'] ) ) {
+		return (int) $args['user_id'];
+	}
+
+	if ( is_numeric( $id_or_email ) ) {
+		return (int) $id_or_email;
+	}
+
+	if ( $id_or_email instanceof WP_User ) {
+		return (int) $id_or_email->ID;
+	}
+
+	if ( is_object( $id_or_email ) && ! empty( $id_or_email->user_id ) ) {
+		return (int) $id_or_email->user_id;
+	}
+
+	if ( is_string( $id_or_email ) ) {
+		$user = get_user_by( 'email', $id_or_email );
+		if ( $user instanceof WP_User ) {
+			return (int) $user->ID;
+		}
+	}
+
+	return 0;
+}
+
+/**
+ * Підключає медіа-завантажувач і скрипт для вибору аватара в профілі.
+ *
+ * @param string $hook Поточний хук адмін-сторінки.
+ *
+ * @return void
+ */
+function cnn_theme_enqueue_avatar_media( $hook ) {
+	if ( 'profile.php' !== $hook && 'user-edit.php' !== $hook ) {
+		return;
+	}
+
+	// Завантажуємо медіа-фрейм WordPress у профілі користувача.
+	wp_enqueue_media();
+
+	wp_register_script( 'cnn-theme-avatar-admin', '', array( 'jquery' ), null, true );
+	wp_enqueue_script( 'cnn-theme-avatar-admin' );
+
+	$script = <<<JS
+jQuery(function($) {
+	var frame;
+	var input = $('#cnn-theme-avatar-id');
+	var preview = $('#cnn-theme-avatar-preview');
+
+	$('#cnn-theme-avatar-upload').on('click', function(event) {
+		event.preventDefault();
+
+		if (frame) {
+			frame.open();
+			return;
+		}
+
+		frame = wp.media({
+			title: 'Виберіть локальний аватар',
+			button: { text: 'Використати аватар' },
+			library: { type: 'image' },
+			multiple: false
+		});
+
+		frame.on('select', function() {
+			var attachment = frame.state().get('selection').first().toJSON();
+			if (!attachment || !attachment.id) {
+				return;
+			}
+			input.val(attachment.id);
+			var url = attachment.sizes && attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.url;
+			preview.html('<img src="' + url + '" alt="Попередній перегляд аватара" style="max-width: 150px; height: auto;">');
+		});
+
+		frame.open();
+	});
+
+	$('#cnn-theme-avatar-remove').on('click', function(event) {
+		event.preventDefault();
+		input.val('');
+		preview.empty();
+	});
+});
+JS;
+	wp_add_inline_script( 'cnn-theme-avatar-admin', $script );
+}
+
+add_action( 'show_user_profile', 'cnn_theme_render_avatar_profile_field' );
+add_action( 'edit_user_profile', 'cnn_theme_render_avatar_profile_field' );
+add_action( 'personal_options_update', 'cnn_theme_save_avatar_profile_field' );
+add_action( 'edit_user_profile_update', 'cnn_theme_save_avatar_profile_field' );
+add_filter( 'get_avatar_data', 'cnn_theme_override_avatar_data', 10, 2 );
+add_action( 'admin_enqueue_scripts', 'cnn_theme_enqueue_avatar_media' );
+
+/**
  * Disable the emoji's
  */
 /**
