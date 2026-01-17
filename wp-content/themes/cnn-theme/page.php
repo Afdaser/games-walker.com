@@ -57,7 +57,8 @@
 
              </span>
              <br />
-             <? if(!wp_is_mobile()){?>
+             <?php // Перевірка відображення для немобільних пристроїв. ?>
+             <?php if ( ! wp_is_mobile() ) { ?>
              <div class="row href">
                <div style="width: 70%;">
                  <?php the_content(); ?>
@@ -67,13 +68,13 @@
                  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2328584419845560" data-ad-slot="9128501331" data-ad-format="auto" data-full-width-responsive="true"></ins>
                </div>
              </div>
-             <?}else{?>
+             <?php } else { ?>
              <div class="row href" style="margin: 1%;">
 				 <div>
 					<?php the_content(); ?> 
 				 </div>
              </div>
-             <?}?>
+             <?php } ?>
              <div class="tags">
                <?php 
 						the_tags();
@@ -122,12 +123,13 @@
            </div>
 
          </div>
-         <? if ( wp_is_mobile() ){?>
+         <?php // Відображення блоку лише для мобільних пристроїв. ?>
+         <?php if ( wp_is_mobile() ) { ?>
          <div class="middle-block var100p">
            <?php dynamic_sidebar( 'for page' ); ?>
            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2328584419845560" data-ad-slot="9128501331" data-ad-format="auto" data-full-width-responsive="true"></ins>
          </div>
-         <?}?>
+         <?php } ?>
 		   <?php comments_template(); ?>
          <div class="middle-block var100p">
            <div class="border-title">Это очень интересно, советуем посмотреть</div>
