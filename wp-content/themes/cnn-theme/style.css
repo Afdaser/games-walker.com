@@ -1685,6 +1685,10 @@ h6{
 }
 
 .news-block.var2 .img.large img {
+  /* CLS: резервуємо місце під зображення, щоб уникнути стрибків макета */
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: auto;
   max-width: 100%;
   max-height: fit-content;
   -webkit-align-self: flex-end;
