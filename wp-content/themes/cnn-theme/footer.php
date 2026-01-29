@@ -62,9 +62,27 @@ $(function() {
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  const spoilers = Array.from(document.querySelectorAll('.lightweight-accordion details'));
+
+  // Генеруємо стабільний ключ для спойлера (щоб не залежати від порядку елементів)
+  const getSpoilerKey = function (details, index) {
+    const wrapper = details.closest('.lightweight-accordion');
+    const wrapperId = wrapper && wrapper.id ? wrapper.id : '';
+    const detailsId = details.id || (wrapperId ? wrapperId + '-details' : 'lw-accordion-' + index);
+
+    // Прив'язуємо ідентифікатор та ключ до DOM, щоб використовувати їх після перезавантаження
+    if (!details.id) {
+      details.id = detailsId;
+    }
+    details.dataset.spoilerKey = detailsId;
+
+    return detailsId;
+  };
+
   // Відновлення стану спойлерів після перезавантаження
-  document.querySelectorAll('.lightweight-accordion details').forEach(function (details, index) {
-    const shouldBeOpen = localStorage.getItem('spoiler_' + index) === 'true';
+  spoilers.forEach(function (details, index) {
+    const key = getSpoilerKey(details, index);
+    const shouldBeOpen = localStorage.getItem('spoiler_state_' + key) === 'open';
     if (shouldBeOpen) {
       details.setAttribute('open', '');
     } else {
@@ -73,9 +91,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Прокрутка до потрібного спойлера після перезавантаження
-  const targetSpoilerIndex = localStorage.getItem('scrollToSpoiler');
-  if (targetSpoilerIndex !== null) {
-    const element = document.querySelectorAll('.lightweight-accordion details')[targetSpoilerIndex];
+  const targetSpoilerKey = localStorage.getItem('scrollToSpoilerKey');
+  if (targetSpoilerKey) {
+    const element = spoilers.find(function (details) {
+      return details.dataset.spoilerKey === targetSpoilerKey;
+    });
     if (element) {
       const elementTop = element.getBoundingClientRect().top + window.scrollY;
       const offset = 100; // Відступ від верхньої частини вікна (можна налаштувати)
@@ -85,20 +105,22 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
     // Очистка після прокрутки
-    localStorage.removeItem('scrollToSpoiler');
+    localStorage.removeItem('scrollToSpoilerKey');
   }
 
   // Додавання обробника кліку на заголовки спойлерів
   document.querySelectorAll('.lightweight-accordion details > summary').forEach(function (summary, index) {
     summary.addEventListener('click', function (event) {
+      event.preventDefault(); // Зупиняємо стандартне розгортання, бо буде перезавантаження
       const details = summary.parentElement;
+      const key = getSpoilerKey(details, index);
 
-      // Збереження стану: відкритий чи закритий
+      // Збереження стану: відкритий чи закритий (після кліку потрібен протилежний стан)
       const isOpen = details.hasAttribute('open');
-      localStorage.setItem('spoiler_' + index, !isOpen); // Зберігаємо протилежний стан
+      localStorage.setItem('spoiler_state_' + key, isOpen ? 'closed' : 'open');
 
       // Збереження ID спойлера для прокрутки
-      localStorage.setItem('scrollToSpoiler', index);
+      localStorage.setItem('scrollToSpoilerKey', key);
 
       // Перезавантаження сторінки
       document.location.reload();
