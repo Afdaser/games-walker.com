@@ -62,6 +62,29 @@ $(function() {
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  function waitForImagesToLoad() {
+    const images = Array.from(document.images);
+
+    if (!images.length) {
+      return Promise.resolve();
+    }
+
+    // Чекаємо завантаження зображень, бо на мобільних висота блоків може змінюватися
+    // після підвантаження медіа, що збиває точку прокрутки.
+    return Promise.all(
+      images.map(function (img) {
+        if (img.complete) {
+          return Promise.resolve();
+        }
+
+        return new Promise(function (resolve) {
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+        });
+      })
+    );
+  }
+
   // Відновлення стану спойлерів після перезавантаження
   document.querySelectorAll('.lightweight-accordion details').forEach(function (details, index) {
     const shouldBeOpen = localStorage.getItem('spoiler_' + index) === 'true';
@@ -75,15 +98,26 @@ document.addEventListener('DOMContentLoaded', function () {
   // Прокрутка до потрібного спойлера після перезавантаження
   const targetSpoilerIndex = localStorage.getItem('scrollToSpoiler');
   if (targetSpoilerIndex !== null) {
-    const element = document.querySelectorAll('.lightweight-accordion details')[targetSpoilerIndex];
-    if (element) {
-      const elementTop = element.getBoundingClientRect().top + window.scrollY;
-      const offset = 100; // Відступ від верхньої частини вікна (можна налаштувати)
-      window.scrollTo({
-        top: elementTop - offset,
-        behavior: 'smooth'
+    const scrollToSpoiler = function () {
+      const element = document.querySelectorAll('.lightweight-accordion details')[targetSpoilerIndex];
+      if (element) {
+        const elementTop = element.getBoundingClientRect().top + window.scrollY;
+        const offset = 100; // Відступ від верхньої частини вікна (можна налаштувати)
+        window.scrollTo({
+          top: elementTop - offset,
+          behavior: 'smooth'
+        });
+      }
+    };
+
+    waitForImagesToLoad().then(function () {
+      requestAnimationFrame(function () {
+        scrollToSpoiler();
+
+        // Коригуючий скрол після можливих пізніх змін висоти на мобільних.
+        setTimeout(scrollToSpoiler, 250);
       });
-    }
+    });
     // Очистка після прокрутки
     localStorage.removeItem('scrollToSpoiler');
   }
