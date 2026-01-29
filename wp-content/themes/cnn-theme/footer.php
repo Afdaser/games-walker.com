@@ -92,17 +92,87 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Прокрутка до потрібного спойлера після перезавантаження
   const targetSpoilerKey = localStorage.getItem('scrollToSpoilerKey');
+  const scrollToSpoiler = function (element, options) {
+    const settings = Object.assign({
+      offset: 100,
+      maxAttempts: 3,
+      positionDelta: 20,
+      maxWaitMs: 450,
+      retryDelayMs: 140
+    }, options || {});
+    let attempts = 0;
+    let lastTop = null;
+    const startTime = performance.now();
+
+    const getElementTop = function () {
+      return element.getBoundingClientRect().top + window.scrollY;
+    };
+
+    const doScroll = function () {
+      attempts += 1;
+      lastTop = getElementTop();
+      window.scrollTo({
+        top: lastTop - settings.offset,
+        behavior: 'smooth'
+      });
+    };
+
+    const finalizeScroll = function () {
+      const finalTop = getElementTop();
+      window.scrollTo({
+        top: finalTop - settings.offset,
+        behavior: 'smooth'
+      });
+    };
+
+    const scheduleCheck = function () {
+      const elapsed = performance.now() - startTime;
+      if (attempts >= settings.maxAttempts) {
+        return;
+      }
+      if (elapsed >= settings.maxWaitMs) {
+        finalizeScroll();
+        return;
+      }
+      setTimeout(function () {
+        const currentTop = getElementTop();
+        if (Math.abs(currentTop - lastTop) > settings.positionDelta) {
+          doScroll();
+          scheduleCheck();
+          return;
+        }
+        if (performance.now() - startTime >= settings.maxWaitMs) {
+          finalizeScroll();
+        }
+      }, settings.retryDelayMs);
+    };
+
+    doScroll();
+    scheduleCheck();
+  };
+
+  const scheduleScrollToSpoiler = function (element) {
+    let rafCount = 0;
+    const rafLoop = function () {
+      rafCount += 1;
+      if (rafCount >= 3) {
+        scrollToSpoiler(element);
+        return;
+      }
+      requestAnimationFrame(rafLoop);
+    };
+    requestAnimationFrame(rafLoop);
+  };
+
   if (targetSpoilerKey) {
     const element = spoilers.find(function (details) {
       return details.dataset.spoilerKey === targetSpoilerKey;
     });
     if (element) {
-      const elementTop = element.getBoundingClientRect().top + window.scrollY;
-      const offset = 100; // Відступ від верхньої частини вікна (можна налаштувати)
-      window.scrollTo({
-        top: elementTop - offset,
-        behavior: 'smooth'
-      });
+      // Свідомо не чекаємо завершення завантаження реклами/зображень:
+      // використовуємо обмежений час очікування і повторний скрол,
+      // щоб забезпечити стабільну поведінку на мобільних.
+      scheduleScrollToSpoiler(element);
     }
     // Очистка після прокрутки
     localStorage.removeItem('scrollToSpoilerKey');
