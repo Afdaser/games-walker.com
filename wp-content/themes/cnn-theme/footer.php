@@ -68,12 +68,18 @@ document.addEventListener('DOMContentLoaded', function () {
   const getSpoilerKey = function (details, index) {
     const wrapper = details.closest('.lightweight-accordion');
     const wrapperId = wrapper && wrapper.id ? wrapper.id : '';
-    const detailsId = details.id || (wrapperId ? wrapperId + '-details' : 'lw-accordion-' + index);
+    const wrapperDetails = wrapper ? Array.from(wrapper.querySelectorAll('details')) : [];
+    const elementIndex = wrapperDetails.indexOf(details);
+    const stableIndex = elementIndex !== -1 ? elementIndex : index;
+    const baseId = wrapperId ? wrapperId + '-details' : 'lw-accordion';
+    const detailsId = baseId + '-' + stableIndex;
 
     // Прив'язуємо ідентифікатор та ключ до DOM, щоб використовувати їх після перезавантаження
+    // Унікалізація потрібна, щоб уникнути колізій та забезпечити стабільну роботу після змін у DOM.
     if (!details.id) {
       details.id = detailsId;
     }
+    // Зберігаємо окремий ключ для localStorage, щоб він був стабільним навіть при зміні DOM.
     details.dataset.spoilerKey = detailsId;
 
     return detailsId;
