@@ -17,7 +17,6 @@
 			/* Start the Loop */
 			while ( have_posts() ) :
 				the_post();
-				setPostViews(get_the_ID());
 
 				/*
 				 * Include the Post-Type-specific template for the content.

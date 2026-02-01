@@ -454,6 +454,35 @@ function getPostViews($postID){
     }
     return $count.' просмотров';
 }
+/**
+ * Реєструємо фронтенд-лічильник переглядів для точного підрахунку через AJAX.
+ */
+function cnn_theme_register_view_counter_assets() {
+	// Підключаємо скрипт лише на одиночних записах, щоб не рахувати перегляди в архівах.
+	if ( ! is_single() ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'cnn-theme-view-counter',
+		get_template_directory_uri() . '/js/view-counter.js',
+		array(),
+		'1.0.0',
+		true
+	);
+
+	// Передаємо потрібні дані в JS для AJAX-запиту.
+	wp_localize_script(
+		'cnn-theme-view-counter',
+		'cnnThemeViewCounter',
+		array(
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'cnn_theme_count_view' ),
+			'postId'  => get_queried_object_id(),
+		)
+	);
+}
+add_action( 'wp_enqueue_scripts', 'cnn_theme_register_view_counter_assets' );
 function twitter(){
 	global $post;
     $twitter = get_the_author_meta( 'twitter', $post->post_author );
@@ -534,15 +563,38 @@ function pinterest(){
 function setPostViews($postID) {
     $count_key = 'post_views_count';
     $count = get_post_meta($postID, $count_key, true);
-    if($count==''){
-        $count = 0;
+    if ($count === '') {
+        // Ініціалізуємо лічильник, якщо його ще не існує.
         delete_post_meta($postID, $count_key);
-        add_post_meta($postID, $count_key, '0');
-    }else{
-        $count++;
-        update_post_meta($postID, $count_key, $count);
+        add_post_meta($postID, $count_key, '1');
+        return;
     }
+
+    $count = (int) $count + 1;
+    update_post_meta($postID, $count_key, $count);
 }
+
+/**
+ * AJAX-обробник для інкременту переглядів (працює навіть з кешем).
+ */
+function cnn_theme_handle_view_count() {
+	check_ajax_referer( 'cnn_theme_count_view', 'nonce' );
+
+	$post_id = isset( $_POST['postId'] ) ? absint( $_POST['postId'] ) : 0;
+	if ( ! $post_id ) {
+		wp_send_json_error( array( 'message' => 'Некоректний ідентифікатор запису.' ) );
+	}
+
+	// Підраховуємо перегляд тільки для записів.
+	if ( 'post' !== get_post_type( $post_id ) ) {
+		wp_send_json_error( array( 'message' => 'Непідтримуваний тип запису.' ) );
+	}
+
+	setPostViews( $post_id );
+	wp_send_json_success();
+}
+add_action( 'wp_ajax_cnn_theme_count_view', 'cnn_theme_handle_view_count' );
+add_action( 'wp_ajax_nopriv_cnn_theme_count_view', 'cnn_theme_handle_view_count' );
 function get_first_paragraph(){
 global $post;
 
