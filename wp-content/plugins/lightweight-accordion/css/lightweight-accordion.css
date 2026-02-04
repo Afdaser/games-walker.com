@@ -9,6 +9,8 @@
 }
 .lightweight-accordion .lightweight-accordion-body {
 	padding: 10px;
+	/* Уникаємо горизонтального скролу при відкритті спойлера. */
+	overflow-x: hidden;
 }
 .lightweight-accordion.bordered .lightweight-accordion-body {
 	border: 2px solid #f1f2f6;
@@ -36,7 +38,9 @@
 	margin: 0 0 12px;
 }
 
-.lightweight-accordion .lightweight-accordion-ad .adsbygoogle {
+.lightweight-accordion .lightweight-accordion-ad .adsbygoogle,
+.lightweight-accordion .lightweight-accordion-ad ins,
+.lightweight-accordion .lightweight-accordion-ad iframe {
 	display: block;
 	width: 100%;
 	max-width: 100%;
