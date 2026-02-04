@@ -82,6 +82,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Відновлення стану спойлерів після перезавантаження
   spoilers.forEach(function (details, index) {
     const key = getSpoilerKey(details, index);
+    // Фіксуємо ширину спойлера інлайново, щоб уникнути горизонтальної прокрутки.
+    details.style.setProperty('width', '95%', 'important');
     const shouldBeOpen = localStorage.getItem('spoiler_state_' + key) === 'open';
     if (shouldBeOpen) {
       details.setAttribute('open', '');
