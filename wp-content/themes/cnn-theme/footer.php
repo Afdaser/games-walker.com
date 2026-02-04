@@ -79,26 +79,27 @@ document.addEventListener('DOMContentLoaded', function () {
     return detailsId;
   };
 
-  // Додаємо/оновлюємо рекламний блок над спойлером
+  // Додаємо/оновлюємо рекламний блок всередині спойлера
   const updateSpoilerAdBlock = function (details, key, shouldShow) {
-    const wrapper = details.parentElement;
-    if (!wrapper) {
+    const body = details.querySelector('.lightweight-accordion-body');
+    if (!body) {
       return;
     }
 
     // Шукаємо вже створений рекламний блок для цього спойлера
-    let adBlock = wrapper.querySelector('.spoiler-ad-block[data-spoiler-key="' + key + '"]');
+    let adBlock = body.querySelector('.spoiler-ad-block[data-spoiler-key="' + key + '"]');
     if (!adBlock) {
       adBlock = document.createElement('div');
       adBlock.className = 'spoiler-ad-block';
       adBlock.dataset.spoilerKey = key;
       // Вставляємо оптимізований блок AdSense без повторного підключення скрипта
       adBlock.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2328584419845560" data-ad-slot="5510401721" data-ad-format="auto" data-full-width-responsive="true"></ins>';
-      wrapper.insertBefore(adBlock, details);
+      // Додаємо блок всередині спойлера перед контентом
+      body.insertBefore(adBlock, body.firstChild);
     }
 
     // Показуємо блок лише коли спойлер має бути відкритим
-    adBlock.style.display = shouldShow ? 'flex' : 'none';
+    adBlock.style.display = shouldShow ? 'block' : 'none';
 
     // Ініціалізуємо рекламу тільки один раз для кожного блоку
     if (shouldShow && !adBlock.dataset.adPushed) {

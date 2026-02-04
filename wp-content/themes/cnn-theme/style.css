@@ -69,14 +69,12 @@ ul {
   position: relative;
 }
 
-/* Рекламний блок над спойлером */
+/* Рекламний блок всередині спойлера */
 .spoiler-ad-block {
   width: 100%;
   max-height: 20vh;
   height: 20vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   background: #f5f5f5;
   color: #595959;
   border: 1px dashed #d9d9d9;
