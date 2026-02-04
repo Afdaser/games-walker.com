@@ -132,17 +132,14 @@ $user = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_
             <div class="container">
                 <div class="row">
                     <div class="line ads">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- GW_GOL -->
+                        <!-- Ініціалізація слота відбувається централізовано у main.js. -->
                         <ins class="adsbygoogle"
                             style="display:block"
                             data-ad-client="ca-pub-2328584419845560"
                             data-ad-slot="9571991316"
                             data-ad-format="auto"
                             data-full-width-responsive="true"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
                     </div>
 
                     <div class="middle-block var100p">

@@ -80,6 +80,7 @@
 
                         <!-- Рекламний блок -->
                         <div class="lineads">
+                            <!-- Ініціалізація слота відбувається централізовано у main.js. -->
                             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2328584419845560" data-ad-slot="9571991316" data-ad-format="auto" data-full-width-responsive="true"></ins>
                         </div>
                         <br />
@@ -93,6 +94,7 @@
                                 </div>
                                 <div style="width: 30%;">
                                     <!-- Рекламний блок для десктопа -->
+                                    <!-- Ініціалізація слота відбувається централізовано у main.js. -->
                                     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2328584419845560" data-ad-slot="9128501331" data-ad-format="auto" data-full-width-responsive="true"></ins>
                                 </div>
                             </div>

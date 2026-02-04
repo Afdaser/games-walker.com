@@ -257,6 +257,48 @@ $(function () {
         $(this).toggleClass("open");
         $(".mobile-menu").toggleClass("open");
     });
- 
-$(".adsbygoogle").each(function () { (adsbygoogle = window.adsbygoogle || []).push({}); })
+    // Ініціалізуємо рекламу лише коли контейнер має ненульову ширину,
+    // щоб уникнути помилки adsbygoogle.push() для availableWidth=0.
+    function initAdsenseSlot(slot) {
+        var $slot = $(slot);
+        var alreadyInit = $slot.attr("data-adsbygoogle-init") === "1";
+        var alreadyDone = $slot.attr("data-adsbygoogle-status") === "done";
+
+        if (alreadyInit || alreadyDone) {
+            return;
+        }
+
+        if (slot.offsetWidth > 0 && slot.getClientRects().length > 0) {
+            $slot.attr("data-adsbygoogle-init", "1");
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            return;
+        }
+
+        if ($slot.attr("data-adsbygoogle-observing") === "1") {
+            return;
+        }
+
+        $slot.attr("data-adsbygoogle-observing", "1");
+
+        if (typeof ResizeObserver !== "undefined") {
+            var observer = new ResizeObserver(function () {
+                if (slot.offsetWidth > 0 && slot.getClientRects().length > 0) {
+                    observer.disconnect();
+                    $slot.removeAttr("data-adsbygoogle-observing");
+                    initAdsenseSlot(slot);
+                }
+            });
+            observer.observe(slot);
+        } else {
+            // Резервний шлях без ResizeObserver.
+            setTimeout(function () {
+                $slot.removeAttr("data-adsbygoogle-observing");
+                initAdsenseSlot(slot);
+            }, 500);
+        }
+    }
+
+    $(".adsbygoogle").each(function () {
+        initAdsenseSlot(this);
+    });
 });

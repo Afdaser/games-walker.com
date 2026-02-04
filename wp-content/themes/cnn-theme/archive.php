@@ -18,17 +18,14 @@
             <div class="share-links">
             </div>
             <div class="line ads">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <!-- GW_GOL -->
+                <!-- Ініціалізація слота відбувається централізовано у main.js. -->
                 <ins class="adsbygoogle"
                     style="display:block"
                     data-ad-client="ca-pub-2328584419845560"
                     data-ad-slot="9571991316"
                     data-ad-format="auto"
                     data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>		
             </div>
             <div class="row">
                 <?php 
@@ -91,7 +88,7 @@
         </div>
     </div>
 </footer>
-<script data-ad-client="ca-pub-2328584419845560" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- adsbygoogle.js підключається один раз через wp_head. -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/wp-content/themes/cnn-theme/js/libs.min.js"></script>
