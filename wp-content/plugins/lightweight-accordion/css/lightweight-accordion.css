@@ -9,6 +9,8 @@
 }
 .lightweight-accordion .lightweight-accordion-body {
 	padding: 10px;
+	/* Запобігаємо горизонтальному скролу від вкладеного контенту. */
+	overflow-x: hidden;
 }
 .lightweight-accordion.bordered .lightweight-accordion-body {
 	border: 2px solid #f1f2f6;
