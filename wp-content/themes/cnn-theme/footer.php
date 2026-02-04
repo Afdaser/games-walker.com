@@ -79,6 +79,36 @@ document.addEventListener('DOMContentLoaded', function () {
     return detailsId;
   };
 
+  // Додаємо/оновлюємо рекламний блок над спойлером
+  const updateSpoilerAdBlock = function (details, key, shouldShow) {
+    const wrapper = details.parentElement;
+    if (!wrapper) {
+      return;
+    }
+
+    // Шукаємо вже створений рекламний блок для цього спойлера
+    let adBlock = wrapper.querySelector('.spoiler-ad-block[data-spoiler-key="' + key + '"]');
+    if (!adBlock) {
+      adBlock = document.createElement('div');
+      adBlock.className = 'spoiler-ad-block';
+      adBlock.dataset.spoilerKey = key;
+      // Вставляємо оптимізований блок AdSense без повторного підключення скрипта
+      adBlock.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2328584419845560" data-ad-slot="5510401721" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+      wrapper.insertBefore(adBlock, details);
+    }
+
+    // Показуємо блок лише коли спойлер має бути відкритим
+    adBlock.style.display = shouldShow ? 'flex' : 'none';
+
+    // Ініціалізуємо рекламу тільки один раз для кожного блоку
+    if (shouldShow && !adBlock.dataset.adPushed) {
+      // Забезпечуємо наявність черги для AdSense і штовхаємо ініціалізацію
+      window.adsbygoogle = window.adsbygoogle || [];
+      window.adsbygoogle.push({});
+      adBlock.dataset.adPushed = 'true';
+    }
+  };
+
   // Відновлення стану спойлерів після перезавантаження
   spoilers.forEach(function (details, index) {
     const key = getSpoilerKey(details, index);
@@ -88,6 +118,9 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       details.removeAttribute('open');
     }
+
+    // Оновлюємо рекламний блок відповідно до стану спойлера
+    updateSpoilerAdBlock(details, key, shouldBeOpen);
   });
 
   // Прокрутка до потрібного спойлера після перезавантаження
