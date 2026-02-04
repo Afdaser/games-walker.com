@@ -80,21 +80,14 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   // Додаємо рекламний блок всередині спойлера (прямий фрагмент реклами без змін)
-  const updateSpoilerAdBlock = function (details, key, shouldShow) {
+  const updateSpoilerAdBlock = function (details) {
     const body = details.querySelector('.lightweight-accordion-body');
-    if (!body || !shouldShow) {
+    if (!body) {
       return;
     }
 
-    // Шукаємо вже створений рекламний блок для цього спойлера
-    let adBlock = body.querySelector('.spoiler-ad-block[data-spoiler-key="' + key + '"]');
-    if (adBlock) {
-      return;
-    }
-
-    adBlock = document.createElement('div');
+    const adBlock = document.createElement('div');
     adBlock.className = 'spoiler-ad-block';
-    adBlock.dataset.spoilerKey = key;
 
     // Вставляємо фрагмент реклами без змін
     adBlock.innerHTML = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2328584419845560" crossorigin="anonymous"></script>@-- spoiler --<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2328584419845560" data-ad-slot="5510401721" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
@@ -114,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Оновлюємо рекламний блок відповідно до стану спойлера
-    updateSpoilerAdBlock(details, key, shouldBeOpen);
+    updateSpoilerAdBlock(details);
   });
 
   // Прокрутка до потрібного спойлера після перезавантаження
