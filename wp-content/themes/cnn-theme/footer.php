@@ -79,6 +79,60 @@ document.addEventListener('DOMContentLoaded', function () {
     return detailsId;
   };
 
+  // Додаємо/оновлюємо рекламний блок всередині спойлера
+  const updateSpoilerAdBlock = function (details, key, shouldShow) {
+    const body = details.querySelector('.lightweight-accordion-body');
+    if (!body) {
+      return;
+    }
+
+    // Шукаємо вже створений рекламний блок для цього спойлера
+    let adBlock = body.querySelector('.spoiler-ad-block[data-spoiler-key="' + key + '"]');
+    if (!adBlock) {
+      adBlock = document.createElement('div');
+      adBlock.className = 'spoiler-ad-block';
+      adBlock.dataset.spoilerKey = key;
+      // Вставляємо оптимізований блок AdSense без повторного підключення скрипта
+      adBlock.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2328584419845560" data-ad-slot="5510401721" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+      // Додаємо блок всередині спойлера перед контентом
+      body.insertBefore(adBlock, body.firstChild);
+    }
+
+    // Показуємо блок лише коли спойлер має бути відкритим
+    adBlock.style.display = shouldShow ? 'block' : 'none';
+
+    // Ініціалізуємо рекламу тільки один раз для кожного блоку
+    const scheduleAdPush = function (attempt) {
+      if (!shouldShow || adBlock.dataset.adPushed) {
+        return;
+      }
+
+      const maxAttempts = 5;
+      const delayMs = 150;
+      const isVisible = adBlock.offsetParent !== null;
+
+      if (window.adsbygoogle && isVisible) {
+        // Штовхаємо ініціалізацію тільки коли блок уже видимий
+        window.adsbygoogle.push({});
+        adBlock.dataset.adPushed = 'true';
+        return;
+      }
+
+      if (attempt < maxAttempts) {
+        setTimeout(function () {
+          scheduleAdPush(attempt + 1);
+        }, delayMs);
+      }
+    };
+
+    if (shouldShow && !adBlock.dataset.adPushed) {
+      // Даємо браузеру оновити розмітку перед ініціалізацією реклами
+      requestAnimationFrame(function () {
+        scheduleAdPush(0);
+      });
+    }
+  };
+
   // Відновлення стану спойлерів після перезавантаження
   spoilers.forEach(function (details, index) {
     const key = getSpoilerKey(details, index);
@@ -88,6 +142,9 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       details.removeAttribute('open');
     }
+
+    // Оновлюємо рекламний блок відповідно до стану спойлера
+    updateSpoilerAdBlock(details, key, shouldBeOpen);
   });
 
   // Прокрутка до потрібного спойлера після перезавантаження

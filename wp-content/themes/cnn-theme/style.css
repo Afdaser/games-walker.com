@@ -69,6 +69,32 @@ ul {
   position: relative;
 }
 
+/* Рекламний блок всередині спойлера */
+.spoiler-ad-block {
+  width: 100%;
+  max-height: 20vh;
+  height: 20vh;
+  display: block;
+  background: #f5f5f5;
+  color: #595959;
+  border: 1px dashed #d9d9d9;
+  margin-bottom: 12px;
+}
+
+/* Реклама має займати всю ширину контейнера */
+.spoiler-ad-block .adsbygoogle {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Текстова мітка реклами */
+.spoiler-ad-label {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
 .block-news {
   display: -webkit-box;
   display: -webkit-flex;
