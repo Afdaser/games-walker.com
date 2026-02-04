@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return detailsId;
   };
 
-  // Додаємо рекламний блок всередині спойлера (простий варіант без додаткової логіки)
+  // Додаємо рекламний блок всередині спойлера (прямий фрагмент реклами без змін)
   const updateSpoilerAdBlock = function (details, key, shouldShow) {
     const body = details.querySelector('.lightweight-accordion-body');
     if (!body || !shouldShow) {
@@ -96,29 +96,10 @@ document.addEventListener('DOMContentLoaded', function () {
     adBlock.className = 'spoiler-ad-block';
     adBlock.dataset.spoilerKey = key;
 
-    // Додаємо скрипт AdSense (як у наданому фрагменті)
-    const adScript = document.createElement('script');
-    adScript.async = true;
-    adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2328584419845560';
-    adScript.crossOrigin = 'anonymous';
-
-    // Додаємо слот реклами
-    const adSlot = document.createElement('ins');
-    adSlot.className = 'adsbygoogle';
-    adSlot.style.display = 'block';
-    adSlot.setAttribute('data-ad-client', 'ca-pub-2328584419845560');
-    adSlot.setAttribute('data-ad-slot', '5510401721');
-    adSlot.setAttribute('data-ad-format', 'auto');
-    adSlot.setAttribute('data-full-width-responsive', 'true');
-
-    // Додаємо ініціалізацію слота
-    const adInit = document.createElement('script');
-    adInit.text = '(adsbygoogle = window.adsbygoogle || []).push({});';
+    // Вставляємо фрагмент реклами без змін
+    adBlock.innerHTML = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2328584419845560" crossorigin="anonymous"></script>@-- spoiler --<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2328584419845560" data-ad-slot="5510401721" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 
     // Вставляємо блок всередині спойлера перед контентом
-    adBlock.appendChild(adScript);
-    adBlock.appendChild(adSlot);
-    adBlock.appendChild(adInit);
     body.insertBefore(adBlock, body.firstChild);
   };
 
