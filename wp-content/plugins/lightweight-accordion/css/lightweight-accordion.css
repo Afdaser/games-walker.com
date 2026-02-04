@@ -27,3 +27,19 @@
 	0%    {opacity: 0;}
 	100%  {opacity: 1;}
 }
+
+/* Рекламний блок у спойлері: обмеження ширини та стабілізація макету. */
+.lightweight-accordion .lightweight-accordion-ad {
+	max-width: 100%;
+	overflow: hidden;
+	contain: content;
+	margin: 0 0 12px;
+}
+
+.lightweight-accordion .lightweight-accordion-ad .adsbygoogle {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	min-height: 280px;
+	box-sizing: border-box;
+}

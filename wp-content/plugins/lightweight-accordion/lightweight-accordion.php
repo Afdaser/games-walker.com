@@ -156,14 +156,14 @@ function render_lightweight_accordion( $options, $content, $isBlock ) {
 	if( $title && isset($content) ){
 		static $lightweight_accordion_ad_script_added = false;
 		// Додаємо рекламний блок у спойлер зі скриптом Google Ads.
-		// Вбудовані стилі запобігають виходу реклами за межі контейнера та зсуву макету.
-		$ad_markup = '<div class="lightweight-accordion-ad" style="max-width:100%; overflow:hidden; contain:content; margin:0 0 12px;">';
+		// Стилі для блоку визначені у CSS плагіна, щоб не перевантажувати інлайн-атрибутами.
+		$ad_markup = '<div class="lightweight-accordion-ad">';
 		if ( ! $lightweight_accordion_ad_script_added ) {
 			$ad_markup .= '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2328584419845560" crossorigin="anonymous"></script>';
 			$lightweight_accordion_ad_script_added = true;
 		}
 		$ad_markup .= '<!-- Рекламний блок у спойлері -->';
-		$ad_markup .= '<ins class="adsbygoogle" style="display:block; max-width:100%; width:100%; min-height:280px;" data-ad-client="ca-pub-2328584419845560" data-ad-slot="5510401721" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+		$ad_markup .= '<ins class="adsbygoogle" data-ad-client="ca-pub-2328584419845560" data-ad-slot="5510401721" data-ad-format="auto" data-full-width-responsive="true"></ins>';
 		$ad_markup .= '<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 		$ad_markup .= '</div>';
 
