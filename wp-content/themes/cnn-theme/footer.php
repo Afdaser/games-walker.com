@@ -87,8 +87,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const shouldBeOpen = localStorage.getItem('spoiler_state_' + key) === 'open';
     if (shouldBeOpen) {
       details.setAttribute('open', '');
+      // Додаємо відступи лише для відкритого стану, щоб не ламати закриту верстку.
+      details.style.setProperty('padding', '1.5%', 'important');
     } else {
       details.removeAttribute('open');
+      details.style.removeProperty('padding');
     }
   });
 
