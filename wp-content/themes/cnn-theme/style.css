@@ -3576,3 +3576,24 @@ h3.img-title {
   margin: 0; /* прибираємо зайві відступи h3 */
   color: #262626;
 }
+
+/* Запобігаємо горизонтальній прокрутці при відкритті спойлерів. */
+.lightweight-accordion,
+.lightweight-accordion details,
+.lightweight-accordion .lightweight-accordion-body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Обмежуємо ширину рекламних блоків і iframe всередині спойлера. */
+.lightweight-accordion .lightweight-accordion-body iframe,
+.lightweight-accordion .lightweight-accordion-body ins,
+.lightweight-accordion .lightweight-accordion-body .adsbygoogle {
+  max-width: 100%;
+}
+
+/* Страхуємо заголовок спойлера від виходу за межі екрана. */
+.lightweight-accordion details > summary {
+  max-width: 100%;
+  box-sizing: border-box;
+}
