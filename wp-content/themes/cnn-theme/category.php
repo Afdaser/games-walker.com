@@ -100,18 +100,14 @@
 <?php echo paginate_links(); ?>						  
 </div>
 						<div class="middle-block var33p tablet-50">
-							
-							<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-								<!-- GW_GOL -->
+							<!-- GW_GOL -->
+							<!-- Ініціалізація слота відбувається централізовано у main.js. -->
 							<ins class="adsbygoogle"
 								style="display:block"
 								data-ad-client="ca-pub-2328584419845560"
 								data-ad-slot="9571991316"
 								data-ad-format="auto"
 								data-full-width-responsive="true"></ins>
-							<script>
-     							(adsbygoogle = window.adsbygoogle || []).push({});
-							</script>
 							<p class="title arrowed">Это тоже интересно</p>
 							<?php
     // ID родительской страницы
@@ -234,7 +230,7 @@
 	        </div>
 	    </div>
 
-		<script data-ad-client="ca-pub-2328584419845560" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- adsbygoogle.js підключається один раз через wp_head. -->
 	</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="/wp-content/themes/cnn-theme/js/libs.min.js"></script>
