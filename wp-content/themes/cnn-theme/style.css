@@ -3576,3 +3576,96 @@ h3.img-title {
   margin: 0; /* прибираємо зайві відступи h3 */
   color: #262626;
 }
+
+/* -------------- SEARCH RESULTS PAGE  -------------- */
+/* Доробка пошуку: використовуємо існуючу сітку .news-block і додаємо мінімальні уточнення для читабельності. */
+.search-results-page {
+  padding-bottom: 20px;
+}
+
+.search-results-page .page-header {
+  margin-bottom: 25px;
+}
+
+.search-results-page .page-title {
+  margin: 0;
+  color: #262626;
+  font-weight: 700;
+}
+
+.search-results-page .page-title span {
+  color: #c00;
+}
+
+.search-results-page .search-results-grid {
+  padding-top: 0;
+}
+
+.search-results-page .search-result-item {
+  margin-bottom: 30px;
+}
+
+.search-results-page .search-result-thumb {
+  display: block;
+}
+
+.search-results-page .search-result-thumb img {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+}
+
+.search-results-page .search-result-body {
+  width: 100%;
+}
+
+.search-results-page .search-result-title {
+  margin: 10px 0 5px;
+}
+
+.search-results-page .search-result-title a {
+  display: inline;
+}
+
+.search-results-page .search-result-meta {
+  margin-bottom: 10px;
+}
+
+.search-results-page .search-result-summary {
+  margin-top: 0;
+  color: #595959;
+}
+
+.search-results-page .search-result-summary p {
+  margin: 0;
+}
+
+.search-results-page .navigation {
+  width: 100%;
+  border-top: 1px solid #d9d9d9;
+  padding-top: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  .search-results-page .page-title {
+    font-size: 1.8rem;
+  }
+
+  .search-results-page .search-result-thumb img {
+    max-height: 220px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .search-results-page .page-title {
+    font-size: 1.4rem;
+  }
+
+  .search-results-page .search-result-item {
+    margin-bottom: 20px;
+  }
+
+  .search-results-page .search-result-thumb img {
+    max-height: 200px;
+  }
+}

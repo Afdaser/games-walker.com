@@ -9,27 +9,31 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<div class="entry-header">
-		<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'middle-block tablet-50 mobile-100 search-result-item' ); ?>>
+	<?php // Узгоджуємо картку пошуку з існуючим візуальним блоком новин теми. ?>
+	<a class="img search-result-thumb" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
+		<?php
+		if ( has_post_thumbnail() ) {
+			cnn_theme_post_thumbnail();
+		} else {
+			echo '<img src="' . esc_url( get_template_directory_uri() . '/img/default-image.png' ) . '" alt="' . esc_attr__( 'Изображение отсутствует', 'cnn-theme' ) . '">';
+		}
+		?>
+	</a>
+
+	<div class="search-result-body">
+		<?php the_title( sprintf( '<h2 class="title search-result-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 
 		<?php if ( 'post' === get_post_type() ) : ?>
-		<div class="entry-meta">
+		<div class="author date search-result-meta">
 			<?php
 			cnn_theme_posted_on();
-			cnn_theme_posted_by();
 			?>
-		</div><!-- .entry-meta -->
+		</div>
 		<?php endif; ?>
-	</div><!-- .entry-header -->
 
-	<?php cnn_theme_post_thumbnail(); ?>
-
-	<div class="entry-summary">
-		<?php the_excerpt(); ?>
-	</div><!-- .entry-summary -->
-
-	<div class="entry-footer">
-		<?php cnn_theme_entry_footer(); ?>
-	</div><!-- .entry-footer -->
+		<div class="news-text search-result-summary">
+			<?php the_excerpt(); ?>
+		</div>
+	</div>
 </article><!-- #post-<?php the_ID(); ?> -->
