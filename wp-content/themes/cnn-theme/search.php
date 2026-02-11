@@ -10,12 +10,15 @@
 get_header();
 ?>
 
-	<section id="primary" class="content-area">
+	<section id="primary" class="content-area search-results-page">
 		<main id="main" class="site-main">
+			<div class="news-block search-results-block">
+				<div class="container">
+					<div class="search-results-shell">
 
 		<?php if ( have_posts() ) : ?>
 
-			<header class="page-header">
+			<header class="page-header search-results-header">
 				<h1 class="page-title">
 					<?php
 					/* translators: %s: search query. */
@@ -23,7 +26,7 @@ get_header();
 					?>
 				</h1>
 			</header><!-- .page-header -->
-			<div class="line ads">
+			<div class="line ads search-results-ads">
 					<!-- GW_GOL -->
 					<!-- Ініціалізація слота відбувається централізовано у main.js. -->
 					<ins class="adsbygoogle"
@@ -35,6 +38,8 @@ get_header();
                 </div>
 			<?php
 			/* Start the Loop */
+			echo '<div class="search-results-list">'; // Обгортаємо результати, щоб стабілізувати сітку на desktop/mobile.
+
 			while ( have_posts() ) :
 				the_post();
 
@@ -47,6 +52,8 @@ get_header();
 
 			endwhile;
 
+			echo '</div>';
+
 			the_posts_navigation();
 
 		else :
@@ -55,6 +62,9 @@ get_header();
 
 		endif;
 		?>
+					</div>
+				</div>
+			</div>
 
 		</main><!-- #main -->
 	</section><!-- #primary -->
