@@ -10,12 +10,13 @@
 get_header();
 ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main">
+	<section id="primary" class="content-area search-page">
+		<!-- Окремий контейнер для сторінки пошуку, щоб зберегти стиль сайту. -->
+		<main id="main" class="site-main container search-page__main">
 
 		<?php if ( have_posts() ) : ?>
 
-			<header class="page-header">
+			<header class="page-header search-page__header">
 				<h1 class="page-title">
 					<?php
 					/* translators: %s: search query. */
@@ -23,7 +24,7 @@ get_header();
 					?>
 				</h1>
 			</header><!-- .page-header -->
-			<div class="line ads">
+			<div class="line ads search-page__ads">
 					<!-- GW_GOL -->
 					<!-- Ініціалізація слота відбувається централізовано у main.js. -->
 					<ins class="adsbygoogle"
@@ -33,6 +34,8 @@ get_header();
      					data-ad-format="auto"
      					data-full-width-responsive="true"></ins>
                 </div>
+			<!-- Сітка результатів пошуку керується окремими CSS-правилами. -->
+			<div class="search-results-grid">
 			<?php
 			/* Start the Loop */
 			while ( have_posts() ) :
@@ -46,8 +49,16 @@ get_header();
 				get_template_part( 'template-parts/content', 'search' );
 
 			endwhile;
+			?>
+			</div>
+			<?php
 
-			the_posts_navigation();
+			the_posts_navigation(
+				array(
+					'prev_text' => esc_html__( '← Попередні', 'cnn-theme' ),
+					'next_text' => esc_html__( 'Наступні →', 'cnn-theme' ),
+				)
+			);
 
 		else :
 
