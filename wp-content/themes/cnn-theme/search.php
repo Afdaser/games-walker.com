@@ -10,18 +10,20 @@
 get_header();
 ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main">
+	<section id="primary" class="content-area content">
+		<main id="main" class="site-main news-block search-results-page">
+			<div class="container">
 
 		<?php if ( have_posts() ) : ?>
 
-			<header class="page-header">
-				<h1 class="page-title">
+			<header class="page-header line var2">
+				<h1 class="page-title text">
 					<?php
 					/* translators: %s: search query. */
 					printf( esc_html__( 'Поиск для: %s', 'cnn-theme' ), '<span>' . get_search_query() . '</span>' );
 					?>
 				</h1>
+				<span class="stripes"></span>
 			</header><!-- .page-header -->
 			<div class="line ads">
 					<!-- GW_GOL -->
@@ -35,6 +37,8 @@ get_header();
                 </div>
 			<?php
 			/* Start the Loop */
+			echo '<div class="row search-results-grid">';
+
 			while ( have_posts() ) :
 				the_post();
 
@@ -47,6 +51,8 @@ get_header();
 
 			endwhile;
 
+			echo '</div>';
+
 			the_posts_navigation();
 
 		else :
@@ -55,10 +61,10 @@ get_header();
 
 		endif;
 		?>
+			</div>
 
 		</main><!-- #main -->
 	</section><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();
