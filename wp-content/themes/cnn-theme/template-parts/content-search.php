@@ -9,8 +9,8 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'middle-block tablet-50 mobile-100 search-result-item' ); ?>>
-	<?php // Узгоджуємо картку пошуку з існуючим візуальним блоком новин теми. ?>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'middle-block var100p tablet-100 mobile-100 search-result-item' ); ?>>
+	<?php // Показуємо один результат в один ряд і візуально узгоджуємо з блоками теми. ?>
 	<a class="img search-result-thumb" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
 		<?php
 		if ( has_post_thumbnail() ) {
@@ -27,7 +27,11 @@
 		<?php if ( 'post' === get_post_type() ) : ?>
 		<div class="author date search-result-meta">
 			<?php
-			cnn_theme_posted_on();
+			$categories_list = get_the_category_list( esc_html__( ', ', 'cnn-theme' ) );
+			if ( $categories_list ) {
+				/* translators: %s: список категорій поста в пошуку. */
+				printf( '<span class="cat-links">' . esc_html__( 'Опубликовано в %s', 'cnn-theme' ) . '</span>', wp_kses_post( $categories_list ) );
+			}
 			?>
 		</div>
 		<?php endif; ?>
