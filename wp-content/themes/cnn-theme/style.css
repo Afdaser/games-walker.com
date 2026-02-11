@@ -3657,6 +3657,25 @@ h3.img-title {
   line-height: 1.55;
 }
 
+/* Коментар: прибираємо накладання елементів та фіксуємо стиль "читать далее". */
+.search-results-list article::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.search-results-list .entry-summary a.read-more {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: 700;
+  color: #111;
+  text-transform: none;
+}
+
+.search-results-list .entry-summary a.read-more:hover {
+  color: #e30000;
+}
+
 .search-results-list .entry-footer {
   margin-top: 14px;
   font-size: 0.95rem;

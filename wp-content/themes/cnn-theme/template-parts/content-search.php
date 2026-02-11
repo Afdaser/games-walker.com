@@ -16,8 +16,11 @@
 		<?php if ( 'post' === get_post_type() ) : ?>
 		<div class="entry-meta">
 			<?php
-			cnn_theme_posted_on();
-			cnn_theme_posted_by();
+			// Показуємо категорії російською замість англомовного "Posted on".
+			$categories_list = get_the_category_list( esc_html__( ', ', 'cnn-theme' ) );
+			if ( $categories_list ) {
+				echo '<span class="cat-links">' . sprintf( esc_html__( 'Категории: %s', 'cnn-theme' ), wp_kses_post( $categories_list ) ) . '</span>';
+			}
 			?>
 		</div><!-- .entry-meta -->
 		<?php endif; ?>

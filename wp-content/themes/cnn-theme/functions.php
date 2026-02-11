@@ -602,6 +602,22 @@ add_filter('embed_oembed_html', function($code) {
   return str_replace('<iframe', '<iframe class="embed-responsive-item" ', $code);
 });
 
+/**
+ * Замінює англомовний текст продовження уривка на російськомовний варіант.
+ *
+ * @param string $more Базовий текст посилання для уривка.
+ *
+ * @return string
+ */
+function cnn_theme_excerpt_more_text( $more ) {
+	if ( is_admin() ) {
+		return $more;
+	}
+
+	return '... <a class="read-more" href="' . esc_url( get_permalink() ) . '">читать далее</a>';
+}
+add_filter( 'excerpt_more', 'cnn_theme_excerpt_more_text' );
+
 // початок оптимізаціїї адсенс коду
 function enqueue_adsense_script() {
     ?>
