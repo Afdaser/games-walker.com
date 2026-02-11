@@ -3576,3 +3576,98 @@ h3.img-title {
   margin: 0; /* прибираємо зайві відступи h3 */
   color: #262626;
 }
+
+/* Блок оформлення сторінки пошуку в стилі існуючого news-block */
+.search-page {
+  padding-top: 20px;
+}
+
+.search-page .page-header {
+  margin-bottom: 20px;
+}
+
+.search-page .page-title {
+  margin: 0;
+}
+
+.search-page .page-title span {
+  color: #262626;
+  font-weight: 700;
+}
+
+.search-page__results {
+  padding-top: 0;
+}
+
+.search-result-card {
+  margin-bottom: 30px;
+}
+
+.search-result-card .img {
+  margin-bottom: 10px;
+}
+
+.search-result-card .entry-title {
+  margin: 0 0 10px;
+}
+
+.search-result-card .entry-title a {
+  color: #262626;
+}
+
+.search-result-card .entry-title a:hover {
+  color: #c00;
+}
+
+.search-result-card .entry-summary {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.search-result-card .entry-footer {
+  color: #888;
+}
+
+.search-page .navigation.posts-navigation {
+  border-top: 1px solid #d9d9d9;
+  padding-top: 15px;
+  margin-bottom: 10px;
+}
+
+.search-page .nav-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.search-page .nav-links a {
+  font-weight: 700;
+  color: #262626;
+}
+
+.search-page .nav-links a:hover {
+  color: #c00;
+}
+
+/* Окремі правки для мобільного пошуку: картки в одну колонку */
+@media only screen and (max-width: 650px) {
+  .search-page {
+    padding-top: 10px;
+  }
+
+  .search-page .page-title {
+    font-size: 1.8rem;
+    line-height: 1.25;
+  }
+
+  .search-result-card {
+    margin-bottom: 20px;
+  }
+}
+
+/* Правка для дуже вузьких екранів, щоб не злипалися елементи навігації */
+@media only screen and (max-width: 480px) {
+  .search-page .nav-links {
+    flex-direction: column;
+  }
+}

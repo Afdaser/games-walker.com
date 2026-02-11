@@ -9,27 +9,20 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<div class="entry-header">
-		<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'middle-block tablet-50 mobile-100 search-result-card' ); ?>>
+	<a class="img" href="<?php the_permalink(); ?>" rel="bookmark" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
+		<?php cnn_theme_post_thumbnail(); ?>
+	</a>
 
-		<?php if ( 'post' === get_post_type() ) : ?>
-		<div class="entry-meta">
-			<?php
-			cnn_theme_posted_on();
-			cnn_theme_posted_by();
-			?>
-		</div><!-- .entry-meta -->
-		<?php endif; ?>
+	<div class="entry-header">
+		<?php the_title( sprintf( '<h2 class="entry-title img-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 	</div><!-- .entry-header -->
 
-	<?php cnn_theme_post_thumbnail(); ?>
-
-	<div class="entry-summary">
+	<div class="entry-summary news-text">
 		<?php the_excerpt(); ?>
 	</div><!-- .entry-summary -->
 
-	<div class="entry-footer">
+	<div class="entry-footer text-small">
 		<?php cnn_theme_entry_footer(); ?>
 	</div><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

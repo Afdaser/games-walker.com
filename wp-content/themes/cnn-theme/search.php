@@ -10,12 +10,13 @@
 get_header();
 ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main">
+	<section id="primary" class="content-area content search-page">
+		<main id="main" class="site-main news-block">
+			<div class="container">
 
 		<?php if ( have_posts() ) : ?>
 
-			<header class="page-header">
+			<header class="page-header search-page__header">
 				<h1 class="page-title">
 					<?php
 					/* translators: %s: search query. */
@@ -35,6 +36,7 @@ get_header();
                 </div>
 			<?php
 			/* Start the Loop */
+			echo '<div class="row search-page__results">';
 			while ( have_posts() ) :
 				the_post();
 
@@ -46,8 +48,14 @@ get_header();
 				get_template_part( 'template-parts/content', 'search' );
 
 			endwhile;
+			echo '</div>';
 
-			the_posts_navigation();
+			the_posts_navigation(
+				array(
+					'prev_text' => esc_html__( 'Предыдущая страница', 'cnn-theme' ),
+					'next_text' => esc_html__( 'Следующая страница', 'cnn-theme' ),
+				)
+			);
 
 		else :
 
@@ -55,6 +63,7 @@ get_header();
 
 		endif;
 		?>
+			</div>
 
 		</main><!-- #main -->
 	</section><!-- #primary -->
