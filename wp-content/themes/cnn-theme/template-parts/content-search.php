@@ -22,14 +22,32 @@
 		<div class="entry-header">
 			<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 
-			<?php if ( 'post' === get_post_type() ) : ?>
 			<div class="entry-meta">
 				<?php
-				// Показуємо лише релевантний мінімум метаданих для компактнішої видачі.
-				cnn_theme_posted_on();
+				// Для пошукової видачі виводимо "опубликовано в" + категорію або батьківську сторінку.
+				$published_in = '';
+
+				if ( 'post' === get_post_type() ) {
+					$categories = get_the_category_list( ', ' );
+					if ( $categories ) {
+						$published_in = $categories;
+					}
+				} elseif ( 'page' === get_post_type() ) {
+					$parent_id = wp_get_post_parent_id( get_the_ID() );
+					if ( $parent_id ) {
+						$published_in = sprintf(
+							'<a href="%1$s">%2$s</a>',
+							esc_url( get_permalink( $parent_id ) ),
+							esc_html( get_the_title( $parent_id ) )
+						);
+					}
+				}
+
+				if ( $published_in ) {
+					echo wp_kses_post( sprintf( 'опубликовано в %s', $published_in ) );
+				}
 				?>
 			</div><!-- .entry-meta -->
-			<?php endif; ?>
 		</div><!-- .entry-header -->
 
 		<div class="entry-summary">

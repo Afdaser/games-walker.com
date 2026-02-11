@@ -3583,7 +3583,7 @@ h3.img-title {
 }
 
 .search-results-block {
-  padding: 28px 0 40px;
+  padding: 0 0 40px;
 }
 
 .search-results-shell {
@@ -3595,7 +3595,9 @@ h3.img-title {
   background: #000;
   border-left: 4px solid #c00;
   padding: 18px 24px;
-  margin-bottom: 18px;
+  margin-bottom: 24px;
+  position: relative; /* Фіксуємо звичайний потік, щоб заголовок не перекривав першу картку. */
+  z-index: 1;
 }
 
 .search-results-header .page-title {
@@ -3611,7 +3613,7 @@ h3.img-title {
 }
 
 .search-results-ads {
-  margin: 0 0 24px;
+  margin: 0 0 20px;
 }
 
 .search-results-list {
@@ -3753,7 +3755,7 @@ h3.img-title {
   }
 
   .search-results-block {
-    padding: 22px 0 30px;
+    padding: 0 0 30px;
   }
 
   .search-result-thumb {
