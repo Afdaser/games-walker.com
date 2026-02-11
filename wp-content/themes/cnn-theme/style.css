@@ -3576,3 +3576,78 @@ h3.img-title {
   margin: 0; /* прибираємо зайві відступи h3 */
   color: #262626;
 }
+
+/* ===== Пошук: уніфікована стилізація з опорою на наявні стилі ===== */
+.search-page {
+  padding: 20px 0 32px;
+}
+
+.search-page-header {
+  margin-bottom: 14px;
+}
+
+.search-page-ads {
+  margin-bottom: 16px;
+}
+
+.search-page .hentry {
+  margin: 0 0 16px;
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 16px;
+}
+
+.search-page .search-result-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.search-page .search-result-card .post-thumbnail {
+  flex: 0 0 240px;
+  width: 240px;
+  max-width: 240px;
+}
+
+.search-page .search-result-card .post-thumbnail img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.search-page .search-result-content {
+  min-width: 0;
+}
+
+.search-page .entry-title {
+  margin: 0 0 6px;
+}
+
+.search-page .entry-summary p {
+  margin: 0;
+}
+
+.search-page .entry-footer {
+  margin-top: 8px;
+}
+
+@media (max-width: 767px) {
+  .search-page {
+    padding: 14px 0 24px;
+  }
+
+  .search-main {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .search-page .search-result-card {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-page .search-result-card .post-thumbnail,
+  .search-page .search-result-card .post-thumbnail img {
+    width: 100%;
+    max-width: 100%;
+  }
+}

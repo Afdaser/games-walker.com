@@ -10,12 +10,12 @@
 get_header();
 ?>
 
-	<section id="primary" class="content-area">
-		<main id="main" class="site-main">
+	<section id="primary" class="content-area search-page">
+		<main id="main" class="site-main search-main container">
 
 		<?php if ( have_posts() ) : ?>
 
-			<header class="page-header">
+			<header class="page-header search-page-header">
 				<h1 class="page-title">
 					<?php
 					/* translators: %s: search query. */
@@ -23,7 +23,7 @@ get_header();
 					?>
 				</h1>
 			</header><!-- .page-header -->
-			<div class="line ads">
+			<div class="line ads search-page-ads">
 					<!-- GW_GOL -->
 					<!-- Ініціалізація слота відбувається централізовано у main.js. -->
 					<ins class="adsbygoogle"
@@ -60,5 +60,5 @@ get_header();
 	</section><!-- #primary -->
 
 <?php
-get_sidebar();
+// На сторінці пошуку приховуємо стандартний сайдбар, щоб не ламати макет результатів.
 get_footer();
