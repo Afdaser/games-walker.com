@@ -48,7 +48,8 @@ if ( ! function_exists( 'cnn_theme_setup' ) ) :
 			'menu-dropdown' => esc_html__( 'Dropdown', 'cnn-theme' ),
 			'menu-international' => esc_html__( 'International', 'cnn-theme' ),
 			'menu-footer' => esc_html__( 'Footer',  'cnn-theme' ),
-			'menu-links' => esc_html__( 'Links', 'cnn-theme' ),
+			'footermenu-links' => esc_html__( 'Footermenu Links', 'cnn-theme' ),
+			'menu-links' => esc_html__( 'Links (Legacy)', 'cnn-theme' ),
 		) );
 
 		/*

@@ -29,8 +29,10 @@
             <div class="copyright"></div>
             <div class="links">
     <?php
+    $menu_location = has_nav_menu( 'footermenu-links' ) ? 'footermenu-links' : 'menu-links';
+
     $args = array(
-        'theme_location'  => 'menu-links',
+        'theme_location'  => $menu_location,
         'container'       => false,
         'echo'            => false,
         'items_wrap'      => '%3$s',
